@@ -1,6 +1,6 @@
 // DEPENDENCIES
-const apiRouts = require("./Develop/routes/api.js");
-const htmlRouts = require("./Develop/routes/html.js");
+const apiRouts = require("./routes/api.js");
+const htmlRouts = require("./routes/html.js");
 
 const express = require("express");
 
