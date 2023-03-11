@@ -4,8 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "heroku-prebuild": "cd Develop && npm install && npm run build"
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,8 +12,5 @@
     "express": "^4.16.4",
     "fs": "^0.0.1-security",
     "uuid": "^8.3.2"
-  },
-  "directories": {
-    "build": "Develop"
   }
 }
