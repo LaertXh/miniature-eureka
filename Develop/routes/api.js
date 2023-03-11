@@ -1,4 +1,4 @@
 const api = require("express").Router();
-const db = require("db.js");
+const { getParsedStr, addData } = require("../interactions/write");
 
-module.export = api;
+module.exports = api;
