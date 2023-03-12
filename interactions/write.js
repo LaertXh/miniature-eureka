@@ -4,7 +4,8 @@ const unique = require("uuid");
 const dbParsed = [];
 // parse the data from the db and return it, this will allow us to keep what is already there and add to it
 const getParsedStr = () => {
-  fs.readFile("../db/db.json", "utf8", function (err, data) {
+  dbParsed = [];
+  fs.readFileSync("../db/db.json", "utf8", function (err, data) {
     dbParsed = JSON.parse(data);
     return dbParsed;
   });
@@ -23,7 +24,7 @@ const addData = (data) => {
   //add new data
   dbParsed.push(data);
   //write the data
-  fs.writeFile("../db/db.json", JSON.stringify(dbParsed));
+  fs.writeFileSync("../db/db.json", JSON.stringify(dbParsed));
 };
 
 module.exports = getParsedStr;
