@@ -7,7 +7,7 @@ const getParsedStr = () => {
   dbParsed = [];
   fs.readFileSync("../db/db.json", "utf8", function (err, data) {
     dbParsed = JSON.parse(data);
-    return dbParsed;
+    return JSON.stringify(dbParsed);
   });
 };
 
@@ -25,6 +25,7 @@ const addData = (data) => {
   dbParsed.push(data);
   //write the data
   fs.writeFileSync("../db/db.json", JSON.stringify(dbParsed));
+  return data;
 };
 
 module.exports = getParsedStr;
