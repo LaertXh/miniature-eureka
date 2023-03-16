@@ -36,7 +36,7 @@ const deleteNote = async (id) => {
       newDb.push(note);
     }
   }
-  return newDb;
+  await fs.promises.writeFile("./db/db.json", JSON.stringify(newDb));
 };
 
 module.exports = { getParsedStr, addData, deleteNote };
