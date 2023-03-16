@@ -1,5 +1,9 @@
 const api = require("express").Router();
-const { getParsedStr, addData } = require("../interactions/write.js");
+const {
+  getParsedStr,
+  addData,
+  deleteNote,
+} = require("../interactions/write.js");
 
 const fs = require("fs");
 
@@ -10,7 +14,13 @@ api.get("/notes", async (req, res) => {
 });
 
 api.post("/notes", async (req, res) => {
-  addData(req.body).then((data) => res.json("New Data Logged"));
+  addData(req.body).then((data, err) =>
+    err ? console.log(err) : res.json("New Data Logged")
+  );
+});
+
+api.delete("/notes/:id", (req, res) => {
+  deleteNote(req.params.id).then(() => res.json({ ok: true }));
 });
 
 module.exports = api;

@@ -28,4 +28,15 @@ const addData = async (data) => {
   await fs.promises.writeFile("./db/db.json", JSON.stringify(dbParsed));
 };
 
-module.exports = { getParsedStr, addData };
+const deleteNote = async (id) => {
+  let dbParsed = await getParsedStr();
+  let newDb = [];
+  for (let note of dbParsed) {
+    if (note.id !== id) {
+      newDb.push(note);
+    }
+  }
+  return newDb;
+};
+
+module.exports = { getParsedStr, addData, deleteNote };
