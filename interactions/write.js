@@ -1,32 +1,31 @@
 const fs = require("fs");
 const unique = require("uuid");
 
-const dbParsed = [];
 // parse the data from the db and return it, this will allow us to keep what is already there and add to it
-const getParsedStr = () => {
+const getParsedStr = async () => {
   dbParsed = [];
-  fs.readFileSync("../db/db.json", "utf8", function (err, data) {
-    dbParsed = JSON.parse(data);
-    return JSON.stringify(dbParsed);
-  });
+  const data = await fs.promises.readFile("./db/db.json", "utf8");
+  return JSON.parse(data);
 };
 
-const addData = (data) => {
+const addData = async (data) => {
   //check that we have data to write
-  if (data.title === undefined || data.text === undefined) {
+  if (data && (!data.title || !data.text)) {
     throw new Error("Input fields need proper values");
   }
 
-  data.id = unique();
+  data = {
+    title: data.title,
+    text: data.text,
+    id: unique.v1(),
+  };
 
   //parse data
-  getParsedStr();
+  let dbParsed = await getParsedStr();
   //add new data
   dbParsed.push(data);
   //write the data
-  fs.writeFileSync("../db/db.json", JSON.stringify(dbParsed));
-  return data;
+  await fs.promises.writeFile("./db/db.json", JSON.stringify(dbParsed));
 };
 
-module.exports = getParsedStr;
-module.exports = addData;
+module.exports = { getParsedStr, addData };

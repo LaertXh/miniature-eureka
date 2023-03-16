@@ -1,15 +1,16 @@
 const api = require("express").Router();
-const { getParsedStr, addData } = require("../interactions/write");
+const { getParsedStr, addData } = require("../interactions/write.js");
 
-api.get("/notes", (req, res) => {
-  getParsedStr().then((data) => {
-    return res.json(data);
-  });
+const fs = require("fs");
+
+api.get("/notes", async (req, res) => {
+  const parsedStr = await getParsedStr();
+
+  res.status(200).json(parsedStr);
 });
 
-api.post("/notes", (req, res) => {
-  addData(req.body);
-  res.json("New Data Logged");
+api.post("/notes", async (req, res) => {
+  addData(req.body).then((data) => res.json("New Data Logged"));
 });
 
 module.exports = api;
